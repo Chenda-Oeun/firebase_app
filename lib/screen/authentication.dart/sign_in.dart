@@ -13,8 +13,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-    TextEditingController firstnameController = TextEditingController();
-  TextEditingController lastnameController = TextEditingController();
+
   final authCon = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
@@ -35,19 +34,9 @@ class _SignInState extends State<SignIn> {
                         padding: const EdgeInsets.all(20),
                         child: SingleChildScrollView(
                           child: Column(
-                            
                             children: [
                               const SizedBox(height: 140),
-                              TextField(
-                                controller: emailController,
-                                decoration: const InputDecoration(
-                                    hintText: "Enter first name"),
-                              ),
-                              TextField(
-                                controller: passwordController,
-                                decoration: const InputDecoration(
-                                    hintText: "Enter last name"),
-                              ),
+                            
                               TextField(
                                 controller: emailController,
                                 decoration: const InputDecoration(
@@ -58,9 +47,11 @@ class _SignInState extends State<SignIn> {
                                 decoration: const InputDecoration(
                                     hintText: "Enter password"),
                               ),
-                                 TextButton(onPressed: (){
-                                Get.offAll(()=>const SignUp());
-                              }, child:const Text("Signup"))
+                              TextButton(
+                                  onPressed: () {
+                                    Get.offAll(() => const SignUp());
+                                  },
+                                  child: const Text("Signup"),)
                             ],
                           ),
                         ),
@@ -72,12 +63,13 @@ class _SignInState extends State<SignIn> {
                       width: MediaQuery.of(context).size.width,
                       height: 50,
                       child: ElevatedButton(
-                          onPressed: () {
-                            authCon.signInUser(
-                                email: emailController.text,
-                                password: passwordController.text);
-                          },
-                          child: const Text("Sign In"),),
+                        onPressed: () {
+                          authCon.signInUser(
+                              email: emailController.text,
+                              password: passwordController.text);
+                        },
+                        child: const Text("Sign In"),
+                      ),
                     )
                   ],
                 ),

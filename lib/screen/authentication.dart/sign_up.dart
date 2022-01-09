@@ -13,7 +13,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-    TextEditingController firstnameController = TextEditingController();
+  TextEditingController firstnameController = TextEditingController();
   TextEditingController lastnameController = TextEditingController();
   final authCon = Get.put(AuthController());
   @override
@@ -37,13 +37,13 @@ class _SignUpState extends State<SignUp> {
                           child: Column(
                             children: [
                               const SizedBox(height: 140),
-                                TextField(
-                                controller: emailController,
+                              TextField(
+                                controller: firstnameController,
                                 decoration: const InputDecoration(
                                     hintText: "Enter first name"),
                               ),
                               TextField(
-                                controller: passwordController,
+                                controller: lastnameController,
                                 decoration: const InputDecoration(
                                     hintText: "Enter last name"),
                               ),
@@ -57,9 +57,11 @@ class _SignUpState extends State<SignUp> {
                                 decoration: const InputDecoration(
                                     hintText: "Enter password"),
                               ),
-                              TextButton(onPressed: (){
-                                Get.offAll(()=>const SignIn());
-                              }, child:const Text("Signin")),
+                              TextButton(
+                                  onPressed: () {
+                                    Get.offAll(() => const SignIn());
+                                  },
+                                  child: const Text("Signin")),
                             ],
                           ),
                         ),
@@ -73,8 +75,11 @@ class _SignUpState extends State<SignUp> {
                       child: ElevatedButton(
                           onPressed: () {
                             authCon.signUpUser(
-                                email: emailController.text,
-                                password: passwordController.text);
+                              email: emailController.text,
+                              password: passwordController.text,
+                              firstname: firstnameController.text,
+                              lastname: lastnameController.text,
+                            );
                           },
                           child: const Text("Sign Up")),
                     )
