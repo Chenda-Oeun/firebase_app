@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 class AuthController extends GetxController {
   final isRegisterLoading = false.obs;
   final isSignInLoading = false.obs;
-
+//-----------------------------------------------------------------
   Future<void> signUpUser({String? email, String? password}) async {
     isRegisterLoading(true);
     try {
@@ -15,6 +15,7 @@ class AuthController extends GetxController {
           .createUserWithEmailAndPassword(email: email!, password: password!)
           .then((response) {
         if (response.credential.hashCode == 2011) {
+          addUser();
           Get.offAll(() => const SignIn());
         }
       });
@@ -26,6 +27,15 @@ class AuthController extends GetxController {
     }
     isRegisterLoading(false);
   }
+  //-----------------------------------------------------------------
+  Future<void> addUser(
+    {
+      
+    }
+  )async{
+
+  }
+  //-----------------------------------------------------------------
 
   Future<void> signInUser({String? email, String? password}) async {
     isSignInLoading(true);

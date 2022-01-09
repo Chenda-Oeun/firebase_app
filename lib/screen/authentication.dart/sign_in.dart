@@ -1,4 +1,5 @@
 import 'package:firebase_app/controller/auth_controller.dart';
+import 'package:firebase_app/screen/authentication.dart/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +13,8 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+    TextEditingController firstnameController = TextEditingController();
+  TextEditingController lastnameController = TextEditingController();
   final authCon = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
@@ -32,8 +35,19 @@ class _SignInState extends State<SignIn> {
                         padding: const EdgeInsets.all(20),
                         child: SingleChildScrollView(
                           child: Column(
+                            
                             children: [
                               const SizedBox(height: 140),
+                              TextField(
+                                controller: emailController,
+                                decoration: const InputDecoration(
+                                    hintText: "Enter first name"),
+                              ),
+                              TextField(
+                                controller: passwordController,
+                                decoration: const InputDecoration(
+                                    hintText: "Enter last name"),
+                              ),
                               TextField(
                                 controller: emailController,
                                 decoration: const InputDecoration(
@@ -44,6 +58,9 @@ class _SignInState extends State<SignIn> {
                                 decoration: const InputDecoration(
                                     hintText: "Enter password"),
                               ),
+                                 TextButton(onPressed: (){
+                                Get.offAll(()=>const SignUp());
+                              }, child:const Text("Signup"))
                             ],
                           ),
                         ),
@@ -60,7 +77,7 @@ class _SignInState extends State<SignIn> {
                                 email: emailController.text,
                                 password: passwordController.text);
                           },
-                          child: const Text("Sign In")),
+                          child: const Text("Sign In"),),
                     )
                   ],
                 ),

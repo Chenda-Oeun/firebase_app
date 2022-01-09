@@ -1,4 +1,5 @@
 import 'package:firebase_app/screen/authentication.dart/sign_in.dart';
+import 'package:firebase_app/screen/authentication.dart/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -49,7 +50,7 @@ class OptionScreen extends StatelessWidget {
                       const SizedBox(height: 50),
                       GestureDetector(
                         onTap: () {
-                          Get.offAll(() => const SignIn());
+                          Get.offAll(() => const SignUp());
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width,

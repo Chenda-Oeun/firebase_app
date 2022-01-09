@@ -1,4 +1,5 @@
 import 'package:firebase_app/controller/auth_controller.dart';
+import 'package:firebase_app/screen/authentication.dart/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +13,8 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+    TextEditingController firstnameController = TextEditingController();
+  TextEditingController lastnameController = TextEditingController();
   final authCon = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
@@ -34,6 +37,16 @@ class _SignUpState extends State<SignUp> {
                           child: Column(
                             children: [
                               const SizedBox(height: 140),
+                                TextField(
+                                controller: emailController,
+                                decoration: const InputDecoration(
+                                    hintText: "Enter first name"),
+                              ),
+                              TextField(
+                                controller: passwordController,
+                                decoration: const InputDecoration(
+                                    hintText: "Enter last name"),
+                              ),
                               TextField(
                                 controller: emailController,
                                 decoration: const InputDecoration(
@@ -44,6 +57,9 @@ class _SignUpState extends State<SignUp> {
                                 decoration: const InputDecoration(
                                     hintText: "Enter password"),
                               ),
+                              TextButton(onPressed: (){
+                                Get.offAll(()=>const SignIn());
+                              }, child:const Text("Signin")),
                             ],
                           ),
                         ),
