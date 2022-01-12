@@ -39,15 +39,15 @@ class HomePage extends StatelessWidget {
               return const Center(child:  CircularProgressIndicator());
             }
 
-            return ListView(
-              children: snapshot.data!.docs.map((e) {
-                 Map<String, dynamic> data =
-                  snapshot.data!. as Map<String, dynamic>;
-                return ListTile(
-                  leading: const Icon(Icons.person),
-                  title: Text(data["firstname"]));
-              }).toList()
-            );
+            // return ListView(
+            //   children: snapshot.data!.docs.map((e) {
+            //      Map<String, dynamic> data =
+            //       snapshot.data!. as Map<String, dynamic>;
+            //     return ListTile(
+            //       leading: const Icon(Icons.person),
+            //       title: Text(data["firstname"]));
+            //   }).toList()
+            // );
 
             // return ListView(
             //   children: snapshot.data!.docs.map((DocumentSnapshot document) {
