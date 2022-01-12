@@ -9,8 +9,10 @@ import 'package:flutter/material.dart';
 class AuthController extends GetxController {
   final isRegisterLoading = false.obs;
   final isSignInLoading = false.obs;
-//-----------------------------------------------------------------
-  Future<void> signUpUser({
+  final userId ="".obs;
+
+  ///-----------------------------------------------------------------
+  signUpUser({
     String? email,
     String? password,
     String? firstname,
@@ -21,6 +23,7 @@ class AuthController extends GetxController {
       final user = (await FirebaseAuth.instance.createUserWithEmailAndPassword(
               email: email!, password: password!))
           .user;
+
       if (user != null) {
         addUser(
           uid: user.uid.toString(),
@@ -29,6 +32,7 @@ class AuthController extends GetxController {
           lastname: lastname,
         );
         await LocalStorage.storeStrings(key: "uid", value: user.uid.toString());
+        userId.value =  await LocalStorage.getStrings(key: "uid");
         Get.offAll(() => const HomePage());
       }
     } catch (e) {
@@ -38,27 +42,30 @@ class AuthController extends GetxController {
     isRegisterLoading(false);
   }
 
-  //-----------------------------------------------------------------
+  ///-----------------------------------------------------------------
   addUser(
-      {String? firstname, String? lastname, String? email, String? uid}) async {
-    CollectionReference user = FirebaseFirestore.instance.collection("users");
-    return await user
-        .doc(uid)
-        .set({
-          "userId": uid,
+      {String? firstname,
+      String? lastname,
+      String? email,
+      String? uid,}) async {
+        CollectionReference user = FirebaseFirestore.instance.collection("all_user");
+        return user.doc(uid).set({
           "firstname": firstname,
           "lastname": lastname,
           "email": email,
-        })
-        .then((value) => Get.snackbar(
-            "Success", "Your account has been created!",
-            backgroundColor: Colors.green, colorText: Colors.white))
-        .onError((error, stackTrace) => Get.snackbar("Error", error.toString(),
-            backgroundColor: Colors.red, colorText: Colors.white));
-  }
-  //-----------------------------------------------------------------
+          "uid": uid,
+        }).then((value) {
+             Get.snackbar("Success", "Your account has been created successfully!",
+          backgroundColor: Colors.green, colorText: Colors.white);
+        }).catchError((e){
+            Get.snackbar("Error", e.message.toString(),
+          backgroundColor: Colors.green, colorText: Colors.white);
+        });
+      }
 
-  Future<void> signInUser({String? email, String? password}) async {
+  ///-----------------------------------------------------------------
+
+  signInUser({String? email, String? password}) async {
     isSignInLoading(true);
     try {
       await FirebaseAuth.instance
@@ -77,6 +84,7 @@ class AuthController extends GetxController {
     isSignInLoading(false);
   }
 
+  ///----------------------------------------------------------
   onCheckUser() {
     if (FirebaseAuth.instance.currentUser?.uid == null) {
       Get.offAll(() => const OptionScreen());
@@ -85,10 +93,13 @@ class AuthController extends GetxController {
     }
   }
 
+  ///----------------------------------------------------------
   signOutUser() async {
     final auth = FirebaseAuth.instance;
     await auth
         .signOut()
         .then((value) => Get.offAll(() => const OptionScreen()));
   }
+
+  ///-------------------------------------------------------
 }
