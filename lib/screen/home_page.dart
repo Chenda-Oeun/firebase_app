@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child:  CircularProgressIndicator());
             }
-
+            return Container();
             // return ListView(
             //   children: snapshot.data!.docs.map((e) {
             //      Map<String, dynamic> data =
