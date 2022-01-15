@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_app/controller/auth_controller.dart';
-import 'package:firebase_app/screen/authentication.dart/sign_in.dart';
+import 'package:firebase_app/model/user/user_models.dart';
+import 'package:firebase_app/screen/all_user.dart';
 import 'package:firebase_app/screen/my_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,8 +12,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authCon = Get.put(AuthController());
-    Stream collectionStream = FirebaseFirestore.instance.collection('all_user').snapshots();
-    // Stream documentStream = FirebaseFirestore.instance.collection('all_user').doc('ABC123').snapshots();
+      CollectionReference allUser =
+        FirebaseFirestore.instance.collection("all_user");
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home"),
@@ -27,39 +29,42 @@ class HomePage extends StatelessWidget {
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
-        child: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection("all_user").snapshots(),
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasError) {
-              return const Text('Something went wrong');
-            }
+        child: Column(
+          children: [
+             FutureBuilder(
+              future: allUser.get(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasData) {
+                  UserModels _userModel = const UserModels();
+                  List<UserModels> _userList = [];
 
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child:  CircularProgressIndicator());
-            }
-            return Container();
-            // return ListView(
-            //   children: snapshot.data!.docs.map((e) {
-            //      Map<String, dynamic> data =
-            //       snapshot.data!. as Map<String, dynamic>;
-            //     return ListTile(
-            //       leading: const Icon(Icons.person),
-            //       title: Text(data["firstname"]));
-            //   }).toList()
-            // );
+                  snapshot.data!.docs.map((e) {
+                    
+                    _userModel =
+                        UserModels.fromJson(e.data() as Map<String, dynamic>);
+                    _userList.add(_userModel);
+                  });
 
-            // return ListView(
-            //   children: snapshot.data!.docs.map((DocumentSnapshot document) {
-            //     Map<String, dynamic> data =
-            //         document.data()! as Map<String, dynamic>;
-            //     return ListTile(
-            //       title: Text(data['full_name']),
-            //       subtitle: Text(data['company']),
-            //     );
-            //   }).toList(),
-            // );
-          },
+                  return Column(children: _userList.map((e) => Text(e.firstname!)).toList());
+                }
+                return Container();
+              },
+            ),
+            Container(
+              margin: const EdgeInsets.all(20),
+              height: 50,
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Get.to(
+                    () => AllUser(),
+                  );
+                },
+                child: const Text("All User"),
+              ),
+            ),
+          ],
         ),
       ),
     );
