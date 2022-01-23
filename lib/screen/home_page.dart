@@ -9,14 +9,13 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      CollectionReference allUser =
-        FirebaseFirestore.instance.collection("all_user");
-
+  
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home"),
         actions: [
           IconButton(
+            tooltip: "Profile",
               onPressed: () {
                 Get.to(() => const UserProfile());
               },
