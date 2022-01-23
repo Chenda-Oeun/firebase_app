@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_app/controller/auth_controller.dart';
-import 'package:firebase_app/model/user/user_models.dart';
 import 'package:firebase_app/screen/all_user.dart';
 import 'package:firebase_app/screen/my_profile.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +9,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authCon = Get.put(AuthController());
       CollectionReference allUser =
         FirebaseFirestore.instance.collection("all_user");
 
@@ -31,26 +28,26 @@ class HomePage extends StatelessWidget {
         height: double.infinity,
         child: Column(
           children: [
-             FutureBuilder(
-              future: allUser.get(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.hasData) {
-                  UserModels _userModel = const UserModels();
-                  List<UserModels> _userList = [];
+            //  FutureBuilder(
+            //   future: allUser.get(),
+            //   builder: (BuildContext context,
+            //       AsyncSnapshot<QuerySnapshot> snapshot) {
+            //     if (snapshot.hasData) {
+            //       UserModels _userModel = const UserModels();
+            //       List<UserModels> _userList = [];
 
-                  snapshot.data!.docs.map((e) {
+            //       snapshot.data!.docs.map((e) {
                     
-                    _userModel =
-                        UserModels.fromJson(e.data() as Map<String, dynamic>);
-                    _userList.add(_userModel);
-                  });
+            //         _userModel =
+            //             UserModels.fromJson(e.data() as Map<String, dynamic>);
+            //         _userList.add(_userModel);
+            //       }).toList();
 
-                  return Column(children: _userList.map((e) => Text(e.firstname!)).toList());
-                }
-                return Container();
-              },
-            ),
+            //       return Column(children: _userList.map((e) => Text(e.firstname!)).toList());
+            //     }
+            //     return Container();
+            //   },
+            // ),
             Container(
               margin: const EdgeInsets.all(20),
               height: 50,
