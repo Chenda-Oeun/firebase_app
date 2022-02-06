@@ -28,6 +28,7 @@ class _$UserModelsTearOff {
       String? firstname,
       String? lastname,
       String? profile,
+      String? gender,
       String? uid}) {
     return _UserModels(
       age: age,
@@ -35,6 +36,7 @@ class _$UserModelsTearOff {
       firstname: firstname,
       lastname: lastname,
       profile: profile,
+      gender: gender,
       uid: uid,
     );
   }
@@ -54,6 +56,7 @@ mixin _$UserModels {
   String? get firstname => throw _privateConstructorUsedError;
   String? get lastname => throw _privateConstructorUsedError;
   String? get profile => throw _privateConstructorUsedError;
+  String? get gender => throw _privateConstructorUsedError;
   String? get uid => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -73,6 +76,7 @@ abstract class $UserModelsCopyWith<$Res> {
       String? firstname,
       String? lastname,
       String? profile,
+      String? gender,
       String? uid});
 }
 
@@ -91,6 +95,7 @@ class _$UserModelsCopyWithImpl<$Res> implements $UserModelsCopyWith<$Res> {
     Object? firstname = freezed,
     Object? lastname = freezed,
     Object? profile = freezed,
+    Object? gender = freezed,
     Object? uid = freezed,
   }) {
     return _then(_value.copyWith(
@@ -114,6 +119,10 @@ class _$UserModelsCopyWithImpl<$Res> implements $UserModelsCopyWith<$Res> {
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
               as String?,
+      gender: gender == freezed
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String?,
       uid: uid == freezed
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
@@ -134,6 +143,7 @@ abstract class _$UserModelsCopyWith<$Res> implements $UserModelsCopyWith<$Res> {
       String? firstname,
       String? lastname,
       String? profile,
+      String? gender,
       String? uid});
 }
 
@@ -154,6 +164,7 @@ class __$UserModelsCopyWithImpl<$Res> extends _$UserModelsCopyWithImpl<$Res>
     Object? firstname = freezed,
     Object? lastname = freezed,
     Object? profile = freezed,
+    Object? gender = freezed,
     Object? uid = freezed,
   }) {
     return _then(_UserModels(
@@ -177,6 +188,10 @@ class __$UserModelsCopyWithImpl<$Res> extends _$UserModelsCopyWithImpl<$Res>
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
               as String?,
+      gender: gender == freezed
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String?,
       uid: uid == freezed
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
@@ -194,6 +209,7 @@ class _$_UserModels with DiagnosticableTreeMixin implements _UserModels {
       this.firstname,
       this.lastname,
       this.profile,
+      this.gender,
       this.uid});
 
   factory _$_UserModels.fromJson(Map<String, dynamic> json) =>
@@ -210,11 +226,13 @@ class _$_UserModels with DiagnosticableTreeMixin implements _UserModels {
   @override
   final String? profile;
   @override
+  final String? gender;
+  @override
   final String? uid;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserModels(age: $age, email: $email, firstname: $firstname, lastname: $lastname, profile: $profile, uid: $uid)';
+    return 'UserModels(age: $age, email: $email, firstname: $firstname, lastname: $lastname, profile: $profile, gender: $gender, uid: $uid)';
   }
 
   @override
@@ -227,6 +245,7 @@ class _$_UserModels with DiagnosticableTreeMixin implements _UserModels {
       ..add(DiagnosticsProperty('firstname', firstname))
       ..add(DiagnosticsProperty('lastname', lastname))
       ..add(DiagnosticsProperty('profile', profile))
+      ..add(DiagnosticsProperty('gender', gender))
       ..add(DiagnosticsProperty('uid', uid));
   }
 
@@ -240,6 +259,7 @@ class _$_UserModels with DiagnosticableTreeMixin implements _UserModels {
             const DeepCollectionEquality().equals(other.firstname, firstname) &&
             const DeepCollectionEquality().equals(other.lastname, lastname) &&
             const DeepCollectionEquality().equals(other.profile, profile) &&
+            const DeepCollectionEquality().equals(other.gender, gender) &&
             const DeepCollectionEquality().equals(other.uid, uid));
   }
 
@@ -251,6 +271,7 @@ class _$_UserModels with DiagnosticableTreeMixin implements _UserModels {
       const DeepCollectionEquality().hash(firstname),
       const DeepCollectionEquality().hash(lastname),
       const DeepCollectionEquality().hash(profile),
+      const DeepCollectionEquality().hash(gender),
       const DeepCollectionEquality().hash(uid));
 
   @JsonKey(ignore: true)
@@ -271,6 +292,7 @@ abstract class _UserModels implements UserModels {
       String? firstname,
       String? lastname,
       String? profile,
+      String? gender,
       String? uid}) = _$_UserModels;
 
   factory _UserModels.fromJson(Map<String, dynamic> json) =
@@ -286,6 +308,8 @@ abstract class _UserModels implements UserModels {
   String? get lastname;
   @override
   String? get profile;
+  @override
+  String? get gender;
   @override
   String? get uid;
   @override

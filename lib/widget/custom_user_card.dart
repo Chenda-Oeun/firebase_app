@@ -4,13 +4,19 @@ import 'package:flutter/material.dart';
 class CustomUserCard extends StatelessWidget {
   final UserModels? userModels;
   final EdgeInsetsGeometry? margin;
-  const CustomUserCard({Key? key, this.userModels,this.margin}) : super(key: key);
+  final Function(String)? onSelected;
+  const CustomUserCard({
+    Key? key,
+    this.userModels,
+    this.margin,
+    this.onSelected,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: margin,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      padding: const EdgeInsets.only(left: 20,top: 20,bottom: 20,right: 5),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
@@ -28,13 +34,45 @@ class CustomUserCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("${userModels!.firstname}  ${userModels!.lastname}",style: const TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+              if (userModels!.firstname != "" || userModels!.lastname != "")
+                Text(
+                  "${userModels!.firstname}  ${userModels!.lastname}",
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               const SizedBox(height: 3),
-              Text(userModels!.email!,style: const TextStyle(color: Colors.grey),),
+              if (userModels!.email != "")
+                Text(
+                  userModels!.email!,
+                  style: const TextStyle(color: Colors.grey),
+                ),
             ],
           ),
           const Spacer(),
-          const Icon(Icons.arrow_forward_ios,size: 18,color: Colors.grey,),
+          PopupMenuButton(
+            icon: const Icon(Icons.more_vert),
+            onSelected: (value) {
+              onSelected!(value.toString());
+            },
+            itemBuilder: (context) {
+              return [
+                const PopupMenuItem(
+                  value: "update",
+                  child: Text("Update"),
+                ),
+                const PopupMenuItem(
+                  value: "delete",
+                  child: Text("Delete"),
+                ),
+                const PopupMenuItem(
+                  value: "cancel",
+                  child: Text("Cancel"),
+                ),
+              ];
+            },
+          )
         ],
       ),
     );

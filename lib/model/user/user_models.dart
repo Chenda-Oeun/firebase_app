@@ -11,7 +11,8 @@ class UserModels with _$UserModels{
     String? firstname,
     String? lastname,
     String? profile,
-    String? uid 
+    String? gender,
+    String? uid,
   }) = _UserModels;
 
   factory UserModels.fromJson(Map<String, dynamic> json) => _$UserModelsFromJson(json);

@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_app/controller/auth_controller.dart';
-import 'package:firebase_app/controller/user_controller.dart';
 import 'package:firebase_app/helper/function/local_sorage.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class UserProfile extends StatefulWidget {
